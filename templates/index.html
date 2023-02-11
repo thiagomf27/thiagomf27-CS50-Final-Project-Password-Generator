@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Password generator</title>
+</head>
+
+<body>
+    <h1>Password generator</h1>
+
+    <div id="password_text">
+        <input id="password_box" type="text" name="text" autocomplete="off" value="{{ variable }}" onclick="load()">
+        <button onclick="copy()"><i class="fa fa-copy" style="font-size:24px"></i></button>
+    </div>
+    
+    <form id="form" method="post">
+        <div id="button">
+            <button type="submit" name="submit">Generate password</button>
+        </div>
+
+        <div id="configure">
+            <label for="size">Number of characters</label>
+            <br>
+            <input id="number" type="number" name="size" min="1" max="25" value="8">
+
+            <div id="check_box">
+                <span class="check_margin">
+                    <label for="numbers" class="check">Numbers</label>
+                    <input type="checkbox" name="numbers" class="check" checked onclick="save()">
+                </span>
+                <span class="check_margin">
+                    <label for="symbols" class="check">Symbols</label>
+                    <input type="checkbox" name="symbols" class="check" checked onclick="save()">
+                </span>
+
+                <span class="check_margin">
+                    <label for="capital_letter" class="check">Capital letter</label>
+                    <input type="checkbox" name="capital_letter" class="check" checked onclick="save()">
+                </span>
+                <span class="check_margin">
+                    <label for="small_letter" class="check">Small letter</label>
+                    <input type="checkbox" name="small_letter" class="check" checked onclick="save()">
+                </span>
+            </div>
+        </div>
+    </form>
+    {% for mesg in get_flashed_messages() %}
+    <p id="flash">{{ mesg }}</p>
+    {% endfor %}
+</body>
+<script>
+    function copy() {
+        var copy_text = document.getElementById("password_box");
+
+        copy_text.select();
+        copy_text.setSelectionRange(0, 99999);
+
+        navigator.clipboard.writeText(copy_text.value);
+
+        alert("Copied the text: " + copy_text.value);
+    }
+</script>
+</html>
